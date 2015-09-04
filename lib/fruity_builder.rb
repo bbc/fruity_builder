@@ -1,4 +1,3 @@
-require 'fruity_builder/helper'
 require 'fruity_builder/lib/sys_log'
 require 'fruity_builder/xcodebuild'
 require 'fruity_builder/build_properties'
