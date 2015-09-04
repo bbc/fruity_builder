@@ -1,0 +1,9 @@
+GEM
+  remote: https://rubygems.org/
+  remote: https://gems.cloud.bbc.co.uk/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
