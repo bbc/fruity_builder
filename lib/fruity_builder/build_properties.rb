@@ -44,7 +44,7 @@ module FruityBuilder
         @properties.scan(/.*CODE_SIGN_IDENTITY.*= "(.*)";.*/).uniq.flatten
       end
 
-      def get_provision_profiles
+      def get_provisioning_profiles
         @properties.scan(/.*PROVISIONING_PROFILE = "(.*)";.*/).uniq.flatten
       end
 

@@ -19,55 +19,54 @@ module FruityBuilder
     end
 
     class Helper
+      attr_accessor :path, :project, :workspace, :build, :plist, :xcode
 
-    attr_accessor :path, :project, :workspace, :build, :plist, :xcode
+      def initialize(path)
+        @path = path
+      end
 
-    def initialize(path)
-      @path = path
-    end
-
-    def project
-      if @project.nil?
-        if @path.scan(/.*xcodeproj$/).count > 0
-          return @path
+      def project
+        if @project.nil?
+          if @path.scan(/.*xcodeproj$/).count > 0
+            return @path
+          end
+          projects = Dir["#{@path}/**/*.xcodeproj"]
+          projects = projects.select { |project| !project.include?('Pods')}
+          raise HelperCommandError.new('Project not found') if projects.empty?
+          raise HelperCommandError.new('Mulitple projects found, please specify one') if projects.count > 1
+          project = projects.first
+          @project = project
         end
-        projects = Dir["#{@path}/**/*.xcodeproj"]
-        projects = projects.select { |project| !project.include?('Pods')}
-        raise HelperCommandError.new('Project not found') if projects.empty?
-        raise HelperCommandError.new('Mulitple projects found, please specify one') if projects.count > 1
-        project = projects.first
-        @project = project
+        @project
       end
-      @project
-    end
 
-    def workspace
-      if @workspace.nil?
-        if @path.scan(/.*xcworkspace$/).count > 0
-          return @path
+      def workspace
+        if @workspace.nil?
+          if @path.scan(/.*xcworkspace$/).count > 0
+            return @path
+          end
+          workspace = Dir["#{@path}/**/*.xcworkspace"].first
+          raise 'Workspace not found' if workspace.nil?
+          @workspace = workspace
         end
-        workspace = Dir["#{@path}/**/*.xcworkspace"].first
-        raise 'Workspace not found' if workspace.nil?
-        @workspace = workspace
+        @workspace
       end
-      @workspace
-    end
 
-    # Handle for the BuildProperties class
-    def build
-      if @build.nil?
-        @build = FruityBuilder::IOS::BuildProperties.new("#{project}/project.pbxproj")
+      # Handle for the BuildProperties class
+      def build
+        if @build.nil?
+          @build = FruityBuilder::IOS::BuildProperties.new("#{project}/project.pbxproj")
+        end
+        @build
       end
-      @build
-    end
 
-    # Handle for the XCodeBuild class
-    def xcode
-      if @xcode.nil?
-        @xcode = FruityBuilder::IOS::XCodeBuild.new(project)
+      # Handle for the XCodeBuild class
+      def xcode
+        if @xcode.nil?
+          @xcode = FruityBuilder::IOS::XCodeBuild.new(project)
+        end
+        @xcode
       end
-      @xcode
-    end
     end
   end
 

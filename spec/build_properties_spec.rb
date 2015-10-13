@@ -41,12 +41,12 @@ describe FruityBuilder::IOS::BuildProperties do
 
   describe 'Provisioning Profile' do
     it 'should get the Provisioning Profile' do
-      expect(@build.get_provision_profiles).to eq(["abcdefa1-bc23-4567-defa-bc89d01234e5", "a1234b5c-def6-7abc-8d9e-0123fa4b567c"])
+      expect(@build.get_provisioning_profiles).to eq(["abcdefa1-bc23-4567-defa-bc89d01234e5", "a1234b5c-def6-7abc-8d9e-0123fa4b567c"])
     end
 
     it 'should replace the Provisioning Profile' do
       @build.replace_provisioning_profile('1234567-abc-1234-abcd-123456')
-      expect(@build.get_provision_profiles).to eq(['1234567-abc-1234-abcd-123456'])
+      expect(@build.get_provisioning_profiles).to eq(['1234567-abc-1234-abcd-123456'])
     end
   end
 end
