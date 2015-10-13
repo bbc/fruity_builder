@@ -1,0 +1,29 @@
+/* Begin PBXProject section */
+                1234567890ABCDEF12345677 /* Project object */ = {
+                        attributes = {
+                                ORGANIZATIONNAME = "BBC";
+                                TargetAttributes = {
+                                        1234567890ABCDEF12345678 = {
+                                                DevelopmentTeam = A12345B678;
+                                        };
+                                };
+                        };
+                };
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+                1234567890ABCDEF12345677 /* Calabash */ = {
+                        buildSettings = {
+                                CODE_SIGN_IDENTITY = "iPhone Developer: A N Other (123456ABC7)";
+                                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: A N Other (123456ABC7)";
+                                PROVISIONING_PROFILE = "abcdefa1-bc23-4567-defa-bc89d01234e5";
+                        };
+                };
+                1234567890ABCDEF12345679 /* Calabash */ = {
+                        buildSettings = {
+                                CODE_SIGN_IDENTITY = "iPhone Distribution: ACME CORP";
+                                PROVISIONING_PROFILE = "a1234b5c-def6-7abc-8d9e-0123fa4b567c";
+                        };
+                        name = Calabash;
+                };
+/* End XCBuildConfiguration section */

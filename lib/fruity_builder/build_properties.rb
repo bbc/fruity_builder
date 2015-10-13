@@ -36,6 +36,18 @@ module FruityBuilder
         end
       end
 
+      def get_dev_teams
+        @properties.scan(/.*DevelopmentTeam = (.*);.*/).uniq.flatten
+      end
+
+      def get_code_signing_identities
+        @properties.scan(/.*CODE_SIGN_IDENTITY.*= "(.*)";.*/).uniq.flatten
+      end
+
+      def get_provision_profiles
+        @properties.scan(/.*PROVISIONING_PROFILE = "(.*)";.*/).uniq.flatten
+      end
+
       def replace_dev_team(new_dev_team)
         @properties = self.class.replace_project_data(regex: '.*DevelopmentTeam = (.*);.*', data: properties, new_value: new_dev_team)
       end
