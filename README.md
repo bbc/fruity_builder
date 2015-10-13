@@ -20,6 +20,8 @@ builder.build.save_project_properties
 builder.build.replace_bundle_id('New bundle ID')
 ```
 
+### Retrieving build properties
+
 ```ruby
 builder.build.get_dev_teams # ['Dev Team']
 builder.build.get_code_signing_identities # ['Identity 1', 'Identity 2']
