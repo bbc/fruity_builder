@@ -4,12 +4,16 @@ module FruityBuilder
   module IOS
     class Plistutil < Execution
 
-      def self.get_bundle_id(options = {})
+      def self.get_xml(options = {})
         if options.key?(:file)
-          xml = IO.read(options[:file])
+          IO.read(options[:file])
         elsif options.key?(:xml)
-          xml = options[:xml]
+          options[:xml]
         end
+      end
+
+      def self.get_bundle_id(options = {})
+        xml = get_xml(options)
 
         raise PlistutilCommandError.new('No XML was passed') unless xml
 
@@ -20,11 +24,7 @@ module FruityBuilder
       end
 
       def self.replace_bundle_id(options = {})
-        if options.key?(:file)
-          xml = IO.read(options[:file])
-        elsif options.key?(:xml)
-          xml = options[:xml]
-        end
+        xml = get_xml(options)
 
         raise PlistutilCommandError.new('No XML was passed') unless xml
 
