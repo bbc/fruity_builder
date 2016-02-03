@@ -25,19 +25,16 @@ module FruityBuilder
         @path = path
       end
 
+      def has_project?
+        return true if get_projects.count > 0
+        false
+      end
+
       def project
-        if @project.nil?
-          if @path.scan(/.*xcodeproj$/).count > 0
-            return @path
-          end
-          projects = Dir["#{@path}/**/*.xcodeproj"]
-          projects = projects.select { |project| !project.include?('Pods')}
-          raise HelperCommandError.new('Project not found') if projects.empty?
-          raise HelperCommandError.new('Mulitple projects found, please specify one') if projects.count > 1
-          project = projects.first
-          @project = project
-        end
-        @project
+        projects = get_projects
+        raise HelperCommandError.new('Project not found') if projects.empty?
+        raise HelperCommandError.new('Mulitple projects found, please specify one') if projects.count > 1
+        @project = projects.first
       end
 
       def workspace
@@ -66,6 +63,21 @@ module FruityBuilder
           @xcode = FruityBuilder::IOS::XCodeBuild.new(project)
         end
         @xcode
+      end
+
+      private
+
+      def get_projects
+        if @project.nil?
+          if @path.scan(/.*xcodeproj$/).count > 0
+            @project = @path
+            return @path
+          end
+          projects = Dir["#{@path}/**/*.xcodeproj"]
+          projects.select { |project| !project.include?('Pods') }
+        else
+          @project
+        end
       end
     end
   end
