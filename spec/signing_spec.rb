@@ -5,7 +5,7 @@ require 'fruity_builder/signing'
 
 include RSpec
 
-describe FruityBuilder::Signing do
+describe FruityBuilder::IOS::Signing do
 
   before(:all) do
 
@@ -13,17 +13,17 @@ describe FruityBuilder::Signing do
 
   describe ".is_ipa?" do
     it "correctly identifies an IPA" do
-      expect(FruityBuilder::Signing.is_ipa?('/path/to/ipa.ipa')).to be(true)
+      expect(FruityBuilder::IOS::Signing.is_ipa?('/path/to/ipa.ipa')).to be(true)
     end
 
     it "correctly identifies a file that isn't an IPA" do
-      expect(FruityBuilder::Signing.is_ipa?('/path/to/app.app')).to be(false)
+      expect(FruityBuilder::IOS::Signing.is_ipa?('/path/to/app.app')).to be(false)
     end
   end
 
   describe ".get_signing_certs" do
     it "returns an Array of Hashes containing iOS Signing Certificates" do
-      expect(FruityBuilder::Signing.get_signing_certs).to be_kind_of(Array)
+      expect(FruityBuilder::IOS::Signing.get_signing_certs).to be_kind_of(Array)
     end
 
     it "returns an Array of Hashes containing correct certificates" do
@@ -37,7 +37,7 @@ describe FruityBuilder::Signing do
         [out, '', (Struct.new(:exitstatus)).new(0)]
       }
 
-      expect(FruityBuilder::Signing.get_signing_certs.count).to eq(3)
+      expect(FruityBuilder::IOS::Signing.get_signing_certs.count).to eq(3)
     end
   end
 
@@ -71,7 +71,7 @@ describe FruityBuilder::Signing do
           'com.apple.developer.team-identifier' => 'ABC1DE2345',
           'get-task-allow' => 'false'
       }
-      expect(FruityBuilder::Signing.get_entitlements('')).to eq(expected_result)
+      expect(FruityBuilder::IOS::Signing.get_entitlements('')).to eq(expected_result)
     end
 
     it 'should replace the entitlements for an app' do
@@ -96,7 +96,7 @@ describe FruityBuilder::Signing do
       allow(Open3).to receive(:capture3) {
         [plist, '', (Struct.new(:exitstatus)).new(0)]
       }
-      expect(FruityBuilder::Signing.enable_get_tasks('/Users/wilsoj95/code/rtmpdump/iplayer.ipa')).to eq(expected)
+      expect(FruityBuilder::IOS::Signing.enable_get_tasks('/Users/wilsoj95/code/rtmpdump/iplayer.ipa')).to eq(expected)
     end
   end
 end
