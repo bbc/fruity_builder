@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'fruity_builder'
-  s.version     = '1.1.0'
+  s.version     = '1.1.1'
   s.date        = Time.now.strftime('%Y-%m-%d')
   s.summary     = 'iOS code signing utilities'
   s.description = 'iOS code signing utilities - used to replace bundle IDs, development teams and provisioning profiles programmatically'
