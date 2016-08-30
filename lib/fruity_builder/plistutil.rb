@@ -60,7 +60,7 @@ module FruityBuilder
         raise PlistutilCommandError.new('plistutil not found') unless plistutil_available?
         result = execute("plistutil -i #{plist}")
         raise PlistutilCommandError.new(result.stderr) if result.exit != 0
-        parse_xml(result.stdout)
+        parse_xml(result.stdout.gsub(/\n\t*/, ''))
       end
 
       def self.parse_xml(xml)
